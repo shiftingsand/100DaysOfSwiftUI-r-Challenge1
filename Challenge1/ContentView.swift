@@ -13,17 +13,33 @@ struct ContentView: View {
     @State var sourceUnit = 1
     @State var desiredUnit = 2
     @State var userAmount = ""
+    let myFormatter = "%.4f"
+    let lengthWithTrailing = 20
     
-    var finalResult : String {
+    var finalResult : Double {
         let timeInSeconds = Measurement(value: Double(userAmount) ?? 0.0, unit: validUnits[sourceUnit])
-        let finalResult = timeInSeconds.converted(to: validUnits[desiredUnit])
+        let theFinalResult = timeInSeconds.converted(to: validUnits[desiredUnit])
+        let shorterNumber : String
+        var finalfinal : Double = 0
+
+        if theFinalResult.value.rounded() == theFinalResult.value {
+            print("\(Int.random(in: 0..<1000)) equal \(theFinalResult.value.rounded()) == \(theFinalResult.value)")
+        } else {
+            print("\(Int.random(in: 0..<1000)) different \(theFinalResult.value.rounded()) == \(theFinalResult.value)")
+        }
         
-        return ("\(finalResult.value)")
+        shorterNumber = String(format: myFormatter, theFinalResult.value)
+        if let shorterNumber = Double(shorterNumber) {
+            finalfinal = shorterNumber
+        }
+        
+        print("returning \(finalfinal)")
+        return finalfinal
     }
-    
+        
     var body: some View {
         Form {
-            Section {
+            Section(header: Text("How much time?")) {
                 TextField("Enter amount you want to convert", text: $userAmount).keyboardType(UIKeyboardType.decimalPad)
             }
             
@@ -46,7 +62,25 @@ struct ContentView: View {
             }
             
             Section (header: Text("Converted time in \(unitName(validUnits[desiredUnit]))")) {
-                Text("\(self.finalResult)")
+                if String(self.finalResult).count > lengthWithTrailing
+                {
+                   // ? nil : unitName(self.validUnits[desiredUnit])
+              //  var resultToPrint = String(format: finalResult == finalResult.rounded() ? "%.0f" : "%.5f", finalResult)
+//                if finalResult == finalResult.rounded() {
+//                    Text("\(self.finalResult, specifier: "%.0f")")
+//                } else {
+//                    Text("\(self.finalResult, specifier: "%.2f")")
+//                }
+                    Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter)")
+                } else {
+                    Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter) \(unitName(validUnits[desiredUnit]))")
+                }
+                
+//                if let trailing = trailing {
+//                    Text("\(resultToPrint) \(trailing)")
+//                } else {
+//                    Text("\(resultToPrint)")
+//                }
             }
         }
     }
