@@ -22,18 +22,12 @@ struct ContentView: View {
         let shorterNumber : String
         var finalfinal : Double = 0
 
-        if theFinalResult.value.rounded() == theFinalResult.value {
-            print("\(Int.random(in: 0..<1000)) equal \(theFinalResult.value.rounded()) == \(theFinalResult.value)")
-        } else {
-            print("\(Int.random(in: 0..<1000)) different \(theFinalResult.value.rounded()) == \(theFinalResult.value)")
-        }
-        
+        // truncate the result. there are probably better ways of doing this.
         shorterNumber = String(format: myFormatter, theFinalResult.value)
         if let shorterNumber = Double(shorterNumber) {
             finalfinal = shorterNumber
         }
         
-        print("returning \(finalfinal)")
         return finalfinal
     }
         
@@ -62,25 +56,14 @@ struct ContentView: View {
             }
             
             Section (header: Text("Converted time in \(unitName(validUnits[desiredUnit]))")) {
+                // if the result is relatively short show the unit also. ignore decimal
+                // if all zeroes follow it.
                 if String(self.finalResult).count > lengthWithTrailing
                 {
-                   // ? nil : unitName(self.validUnits[desiredUnit])
-              //  var resultToPrint = String(format: finalResult == finalResult.rounded() ? "%.0f" : "%.5f", finalResult)
-//                if finalResult == finalResult.rounded() {
-//                    Text("\(self.finalResult, specifier: "%.0f")")
-//                } else {
-//                    Text("\(self.finalResult, specifier: "%.2f")")
-//                }
                     Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter)")
                 } else {
                     Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter) \(unitName(validUnits[desiredUnit]))")
                 }
-                
-//                if let trailing = trailing {
-//                    Text("\(resultToPrint) \(trailing)")
-//                } else {
-//                    Text("\(resultToPrint)")
-//                }
             }
         }
     }
