@@ -33,7 +33,7 @@ struct ContentView: View {
         
     var body: some View {
         Form {
-            Section(header: Text("How much time?")) {
+            Section(header: Text("Time Converter")) {
                 TextField("Enter amount you want to convert", text: $userAmount).keyboardType(UIKeyboardType.decimalPad)
             }
             
