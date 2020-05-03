@@ -17,8 +17,8 @@ struct ContentView: View {
     let lengthWithTrailing = 20
     
     var finalResult : Double {
-        let timeInSeconds = Measurement(value: Double(userAmount) ?? 0.0, unit: validUnits[sourceUnit])
-        let theFinalResult = timeInSeconds.converted(to: validUnits[desiredUnit])
+        let timeSourceUnit = Measurement(value: Double(userAmount) ?? 0.0, unit: validUnits[sourceUnit])
+        let theFinalResult = timeSourceUnit.converted(to: validUnits[desiredUnit])
         let shorterNumber : String
         var finalfinal : Double = 0
 
@@ -60,9 +60,9 @@ struct ContentView: View {
                 // if all zeroes follow it.
                 if String(self.finalResult).count > lengthWithTrailing
                 {
-                    Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter)")
+                    Text("\(self.finalResult, specifier: "%g")")
                 } else {
-                    Text("\(self.finalResult, specifier: finalResult == finalResult.rounded() ? "%.0f" : myFormatter) \(unitName(validUnits[desiredUnit]))")
+                    Text("\(self.finalResult, specifier: "%g") \(unitName(validUnits[desiredUnit]))")
                 }
             }
         }
